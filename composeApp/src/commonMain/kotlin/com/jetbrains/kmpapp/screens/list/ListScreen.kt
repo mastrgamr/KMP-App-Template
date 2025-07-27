@@ -28,13 +28,16 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.jetbrains.kmpapp.data.MuseumObject
 import com.jetbrains.kmpapp.screens.EmptyScreenContent
-import org.koin.compose.viewmodel.koinViewModel
+import com.teobaranga.kotlin.inject.viewmodel.runtime.compose.injectedViewModel
+import kotlin.random.Random
 
 @Composable
 fun ListScreen(
     navigateToDetails: (objectId: Int) -> Unit
 ) {
-    val viewModel = koinViewModel<ListViewModel>()
+//    val viewModel = koinViewModel<ListViewModel>()
+    val viewModel = injectedViewModel<ListViewModel>()
+
     val objects by viewModel.objects.collectAsStateWithLifecycle()
 
     AnimatedContent(objects.isNotEmpty()) { objectsAvailable ->

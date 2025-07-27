@@ -4,12 +4,16 @@ androidx-activityCompose = "1.10.1"
 androidx-ui-tooling = "1.7.8"
 coil = "3.2.0"
 compose-multiplatform = "1.8.2"
-koin = "4.1.0"
+#koin = "4.1.0"
 kotlin = "2.2.0"
 ktor = "3.1.3"
 materialIconsCore = "1.7.3"
 navigationCompose = "2.9.0-beta03"
 lifecycleCompose = "2.9.1"
+ksp-version = "2.2.0-2.0.2"
+kotlin-inject-runtime = "0.8.0"
+kotlin-inject-anvil = "0.1.6"
+kotlin-inject-viewmodel = "0.3.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -17,8 +21,16 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", versi
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-ui-tooling" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-network-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil" }
-koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+#koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+#koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+kotlin-inject-compiler-ksp = { module = "me.tatarka.inject:kotlin-inject-compiler-ksp", version.ref = "kotlin-inject-runtime" }
+kotlin-inject-runtime = { module = "me.tatarka.inject:kotlin-inject-runtime", version.ref = "kotlin-inject-runtime" }
+kotlin-inject-anvil-compiler = { group = "software.amazon.lastmile.kotlin.inject.anvil", name = "compiler", version.ref = "kotlin-inject-anvil" }
+kotlin-inject-anvil-runtime = { group = "software.amazon.lastmile.kotlin.inject.anvil", name = "runtime", version.ref = "kotlin-inject-anvil" }
+kotlin-inject-anvil-runtime-optional = { group = "software.amazon.lastmile.kotlin.inject.anvil", name = "runtime-optional", version.ref = "kotlin-inject-anvil" }
+kotlin-inject-viewmodel-compiler = { module = "com.teobaranga.kotlin.inject.viewmodel:compiler", version.ref = "kotlin-inject-viewmodel" }
+kotlin-inject-viewmodel = { module = "com.teobaranga.kotlin.inject.viewmodel:runtime", version.ref = "kotlin-inject-viewmodel" }
+kotlin-inject-viewmodel-compose = { module = "com.teobaranga.kotlin.inject.viewmodel:runtime-compose", version.ref = "kotlin-inject-viewmodel" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
@@ -34,3 +46,4 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-version" }

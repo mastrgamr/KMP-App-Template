@@ -1,5 +1,10 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.gradle.kotlin.dsl.commonMainImplementation
+import org.gradle.kotlin.dsl.kspCommonMainMetadata
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+import kotlin.jvm.java
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -7,6 +12,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.google.ksp)
 }
 
 kotlin {
@@ -18,7 +24,7 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
+//        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -55,9 +61,18 @@ kotlin {
 
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
-            implementation(libs.koin.core)
-            implementation(libs.koin.compose.viewmodel)
+//            implementation(libs.koin.core)
+//            implementation(libs.koin.compose.viewmodel)
+
+            implementation(libs.kotlin.inject.runtime)
+            implementation(libs.kotlin.inject.viewmodel)
+            implementation(libs.kotlin.inject.viewmodel.compose)
+            implementation(libs.kotlin.inject.runtime)
+            implementation(libs.kotlin.inject.anvil.runtime)
+            implementation(libs.kotlin.inject.anvil.runtime.optional)
         }
+
+        configureCommonMainKsp()
     }
 }
 
@@ -89,5 +104,27 @@ android {
 }
 
 dependencies {
+    kspCommonMainMetadata(libs.kotlin.inject.compiler.ksp)
+    kspCommonMainMetadata(libs.kotlin.inject.anvil.compiler)
+    kspCommonMainMetadata(libs.kotlin.inject.viewmodel.compiler)
+
+    commonMainImplementation(libs.kotlin.inject.anvil.runtime)
+    commonMainImplementation(libs.kotlin.inject.anvil.runtime.optional)
+    implementation(libs.kotlin.inject.viewmodel)
+    implementation(libs.kotlin.inject.viewmodel.compose)
+    implementation(libs.kotlin.inject.runtime)
+
     debugImplementation(libs.androidx.compose.ui.tooling)
+}
+
+fun KotlinMultiplatformExtension.configureCommonMainKsp() {
+    sourceSets.named("commonMain").configure {
+        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+    }
+
+    project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
+        if (name != "kspCommonMainKotlinMetadata") {
+            dependsOn("kspCommonMainKotlinMetadata")
+        }
+    }
 }
