@@ -5,8 +5,9 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinxSerialization)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.google.ksp)
     alias(libs.plugins.kmpNativeCoroutines)
+    alias(libs.plugins.metro.di)
 }
 
 kotlin {
@@ -18,7 +19,7 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
+//        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
@@ -39,14 +40,7 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
-            implementation(libs.koin.core)
-            api(libs.kmp.observable.viewmodel)
-        }
-
-        // Required by KMM-ViewModel
-        all {
-            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
-            languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
         }
     }
 }
@@ -61,4 +55,8 @@ android {
     defaultConfig {
         minSdk = 24
     }
+}
+
+dependencies {
+    debugImplementation(libs.androidx.compose.ui.tooling)
 }

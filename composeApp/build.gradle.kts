@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.google.ksp)
+    alias(libs.plugins.metro.di)
 }
 
 kotlin {
@@ -23,18 +25,18 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.viewmodel.compose)
             implementation(libs.androidx.navigation.compose)
-            implementation(libs.koin.androidx.compose)
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
         }
         commonMain.dependencies {
+            implementation(projects.shared)
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(projects.shared)
             implementation(libs.kotlinx.serialization.core)
         }
     }
